@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="head">
+    <meta charset="UTF-8">
+    <title>豆瓣搜索</title>
+    <style>
+        dl{border-bottom:1px solid gainsboro}
+    </style>
+</head>
+<body>
+    <input type="text" id="txt"/><button id="btn">搜索</button>
+    <p id="msg"></p>
+    <hr />
+    <div id="ctt"></div>
+
+    </dl>
+<script type="text/javascript">
+    const txt = document.getElementById("txt");
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("msg");
+    const ctt = document.getElementById("ctt");
+
+    function fn(data) {
+        console.log(data);
+        let html = "";
+        msg.innerHTML = data.title.$t + ":" + data['opensearch:totalResults'].$t;
+        data.entry.forEach(item =>{
+            html += '<dl><dt>'+item.title.$t+'</dt><dd><img src='+item.link[2]['@href']+'/></dd></dl>'
+        });
+        ctt.innerHTML = html;
+    }
+
+    btn.onclick = ()=>{
+        if(txt.value !== ""){
+            const oS = document.createElement("script");
+            oS.src = "http://api.douban.com/book/subjects?q="+txt.value+"&alt=xd&callback=fn";
+            head.appendChild(oS);
+            oS.remove();
+        }
+    }
+</script>
+</body>
+</html>

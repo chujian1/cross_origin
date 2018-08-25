@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="head">
+    <meta charset="UTF-8">
+    <title>百度搜索</title>
+</head>
+<body>
+搜索：<input id="txt" type="text" />
+    <ul id="ul"></ul>
+<script type="text/javascript">
+    function fn(data) {
+        let html = "";
+        data.s.forEach(e=>{
+            html += '<li>'+ e +'</li>';
+        });
+        ul.innerHTML = html;
+    }
+    const txt = document.getElementById("txt");
+    const head = document.getElementById("head");
+    const ul = document.getElementById("ul");
+    txt.onkeyup = function(){
+        const oS = document.createElement('script');
+        oS.src = "http://suggestion.baidu.com/su?wd=" + this.value + "&cb=fn";
+        head.appendChild(oS);
+        oS.remove();
+    }
+</script>
+</body>
+</html>
